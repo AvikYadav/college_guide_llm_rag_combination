@@ -60,6 +60,8 @@
       * =========================================
     -->
     <script>
+        let baseUrl = window.location.origin + window.location.pathname;
+        let newUrl = baseUrl.replace(/\/$/, "") + "/api";
         document.addEventListener('DOMContentLoaded', () => {
     // Get references to all the necessary HTML elements
     const chatMessages = document.getElementById('chat-messages');
@@ -133,7 +135,7 @@
         startThinking();
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/api', {
+            const response = await fetch(newUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: userText }),

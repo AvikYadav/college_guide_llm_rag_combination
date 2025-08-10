@@ -7,6 +7,7 @@ llm_functions.initialize()
 llm_functions.reload_hierarchy()
 @app.route('/')
 def index():
+    session.clear()
     return render_template("main.html")
 
 @app.route('/api', methods=['POST'])
