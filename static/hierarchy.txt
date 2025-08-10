@@ -1,0 +1,35 @@
+├── NSUT
+    ├── $$SYSTEM$$:timetable_lectureHalls_faculties.json
+    ├── books
+        ├── maths
+            ├── hyperbolic functions
+                ├── $$USER-BOOK$$:Smithsonian Mathematical Tables_ Hyperbolic Functions by Anna’s Archive.pdf
+                ├── $$USER-BOOK$$:hyperbolic_functions_by_james_mcMahon.pdf
+    ├── cad_or_engneeringDesign
+        ├── semister1
+            ├── $$USER-NOTES$$hitesh cad today.pdf
+            ├── $$USER-NOTES$$tonve cad today.pdf
+            ├── $$SYSTEM$$Syllabus-Scanned-1.pdf
+    ├── about_clg
+        ├── $$SYSTEM$$:Navigation_instructions_rules_must_be_followed.txt
+        ├── $$SYSTEM$$:Complete_Detailed_Campus_Map_and_Infrastructure.pdf
+        ├── $$SYSTEM$$:NSUT_Dwarka_Sec‐3_Campus (NSIT)_Overview.pdf
+        ├── $$SYSTEM$$:NSUT_Dwarka_Campus_Details_.pdf
+        ├── $$SYSTEM$$:NSUT_Dwarka_Campus_Detailed_Guide_.pdf
+        ├── $$SYSTEM$$:Comprehensive_Campus Guide_ NSUT.pdf
+    ├── maths
+        ├── semister 1
+            ├── $$USER-NOTES$$prince maths class2 questions and formula of hyperbolic functions.pdf
+            ├── $$USER-NOTES$$Maths-intoduction to hyperbolic func class1.pdf
+            ├── $$SYSTEM$$Syllabus.pdf
+    ├── english
+        ├── semister1
+            ├── $$SYSTEM$$FCHS 0105 ENGLISH SYLLABUS.docx
+            ├── $$SYSTEM$$FCHS 0105 ENGLISH SYLLABUS (3)-1-.pdf
+            ├── Oxford Collocations Dictionary for Students of English by Diana Lea (z-lib.org).pdf
+            ├── Select List of Foreign Words and Phrases .pdf
+            ├── Select Abbreviations list- final).pdf
+    ├── electrical engneering
+        ├── semister1
+            ├── $$SYSTEM$$:syllabus 2.jpg
+            ├── $$SYSTEM$$:syllabus 1.jpg
