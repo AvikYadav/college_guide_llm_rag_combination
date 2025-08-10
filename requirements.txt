@@ -40,7 +40,6 @@ lxml==6.0.0
 markdown-it-py==3.0.0
 matplotlib==3.10.0
 mdurl==0.1.2
-mkl-service==2.4.0
 mmh3==5.2.0
 modal==1.1.0
 oauthlib==3.3.1
@@ -87,5 +86,3 @@ uvicorn==0.35.0
 watchfiles==1.1.0
 websockets==15.0.1
 wheel==0.45.1
-
-
