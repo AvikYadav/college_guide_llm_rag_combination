@@ -1,1 +1,1 @@
-announcement : Demo testing announcementannouncement : Demo announcement 2
+announcement : Demo testing announcementannouncement : Demo announcement 2announcement : Lab is cancelled for today

@@ -1,11 +1,14 @@
 ├── NSUT
     ├── cad_or_engneeringDrawing
         ├── semister1
-            ├── $$USER-NOTES$$tonve cad lecture 1.pdf
+            ├── $$USER-NOTES$$ indrina cad lecture 3 notes.pdf
+            ├── $$USER-NOTES$$ cad notes lecture 2.pdf
             ├── $$USER-NOTES$$hitesh cad lecture 1.pdf
+            ├── $$USER-NOTES$$tonve cad lecture 1.pdf
             ├── $$SYSTEM$$Syllabus-Scanned-1.pdf
     ├── Environmetal_and_green_chemistry
         ├── semester 1
+            ├── $$USER-NOTES$$nishka chemistry water chemistry lecture 3 notes questions practice (1).pdf
             ├── $$USER-NOTES$$Unit 2- Water Chemistry notes- NEP- final_content_of_lecture1-3.pptx
     ├── $$SYSTEM$$:timetable_lectureHalls_faculties.json
     ├── books
@@ -22,8 +25,8 @@
         ├── $$SYSTEM$$:Comprehensive_Campus Guide_ NSUT.pdf
     ├── maths
         ├── semister 1
-            ├── $$USER-NOTES$$:deshna jain maths notes lecture 3 more questions and some special formulas of inverse hyperbolic function.pdf
             ├── $$USER-NOTES$$prince maths lecture 2 questions and formula of hyperbolic functions.pdf
+            ├── $$USER-NOTES$$:deshna jain maths notes lecture 3 more questions and some special formulas of inverse hyperbolic function.pdf
             ├── $$USER-NOTES$$Maths-intoduction to hyperbolic func lecture 1.pdf
             ├── $$SYSTEM$$Syllabus.pdf
     ├── english

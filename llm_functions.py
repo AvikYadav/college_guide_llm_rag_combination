@@ -388,10 +388,12 @@ def tool_reload_announcements():
 
 # this is a llm tool
 def read_announcements(howMany=10):
-    """
-    returns a list of the latest announcements
+    '''
+    a list of the latest announcements
+    :param howMany: this defines the number of announcements to return from the database in which announcements are arranged in order newer to older. by default keep this at 5 unless the user specifies how many announcements to return
     :return: list of announcements
-    """
+    '''
+
     tool_reload_announcements()
     announcements = ""
     with open("static/announcements.txt", "r", encoding="utf-8") as f:
