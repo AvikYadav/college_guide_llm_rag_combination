@@ -87,32 +87,38 @@ def reload_hierarchy():
         file_management_base.list_items_recursively(service,file_management_base.find_shared_folder_id(service,file_management_base.TARGET_FOLDER_NAME),f=f)
     return True
 
+def request_hierarchy_contents():
+    '''
+    only and only use this function if user specifically use $$DEBUG$$ tag at staring and requesting to view or show hierarchy contents
+    :return: hierarchy raw text data
+    '''
+    with open("static/hierarchy.txt", "r", encoding="utf-8") as f:
+        return f.read()
+
 # this is a tool for llm
 def request_files_for_context(user_prompt:str):
+    """Retrieves internal contextual documents to help the LLM answer user queries about the university.
+
+    This tool searches an official database for up-to-date, factual information. It is the authoritative source for topics such as:
+    - **Campus Navigation:** Directions, building locations, room numbers, and campus maps.
+    - **Academic Information:** Course syllabi, detailed course information, academic schedules, and timetables.
+    - **Campus Life & Details:** Information about facilities, departments, and general university life.
+
+    **Crucial Guideline:** The output of this function is raw text from internal documents and is intended for the LLM's use as context only. **NEVER** show the raw output of this function directly to the user. You must process and synthesize the information provided by this tool to generate a helpful and coherent answer in your own words.
+
+    :param user_prompt: The user's original query. This is used to find the most relevant documents.
+    :return: A list of strings, where each string is a relevant text chunk from the knowledge base. This data is for internal LLM consumption and is not intended for the user.
     """
-    Your primary tool for retrieving specific, factual information about the university from the official database.
-
-    This function is the authoritative source for a wide range of topics. Use it whenever a user asks about:
-    - **Campus Navigation:** Directions, building locations, specific room numbers, and campus maps.
-    - **Academic Information:** Course syllabus, detailed information about any specific course, official academic schedules, and timetables.
-    - **Campus Life & Details:** Information about campus facilities, departments, and general university life.
-
-    **Guideline:** If a query requires any factual detail about the university, call this function first to gather accurate, up-to-date context. Always prioritize the information returned by this tool over your general knowledge to ensure accuracy.
-
-    :param user_prompt: The user's original query. Pass the query directly to get the best results.
-    :return: A list of strings. Each string in the list contains the full extracted text from a relevant document.
-"""
     system_prompt = ""
     with open("static/system_prompt_rag.txt", "r", encoding="utf-8") as f:
         system_prompt = f.read()
-    with open("static/hierarchy.txt", "r", encoding="utf-8") as f:
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            config=types.GenerateContentConfig(
-                system_instruction=system_prompt),
-            contents=[user_prompt,f.read()]
-        )
-        print(parse_list_string(response.text))
+    response = client.models.generate_content(
+        model="gemini-2.5-flash",
+        config=types.GenerateContentConfig(
+            system_instruction=system_prompt),
+        contents=[user_prompt,request_hierarchy_contents()]
+    )
+    print(parse_list_string(response.text))
     file_paths=json.loads(parse_list_string(response.text))
     return [
         file_management_base.get_upload_ready_file_for_llm(file_management_base.get_file_name_from_id(service,fileid),file_management_base.download_file_content(service,fileid))
@@ -122,21 +128,45 @@ def request_files_for_context(user_prompt:str):
 
 # this is a tool for llm
 def request_files_id_2sharable_link_gemini_rag(user_prompt:str):
-    """
-    this function returns an array containing sharable links of file which the user has requested, the links it returns are only and only for user not for LLM requesting any file for context
-    :param user_prompt: it contains special tag $$REQUEST-FILE$$ in start followed information about the file user wants to request ,example $$REQUEST-FILE$$ notes for maths semister 1 hyperbolic functions:
-    :returns a array containing sharable links of files requested:
+    """Provides direct, sharable download links for files requested by the user.
+
+    Call this function ONLY when the user explicitly requests a downloadable file, such as notes, documents, or syllabi. It is triggered by phrases like:
+    Direct Requests
+        Send me the presentation slides.
+        Get me the PDF for chapter 5.
+        Forward me the email with the attachment.
+        Shoot me the document when you have a second. (informal)
+    Polite Questions
+        Could you send the files for the marketing campaign?
+        Do you have the notes from yesterday's lecture?
+        Would you mind sharing the report with me?
+        Is it possible to get a copy of the contract?
+    Statements of Need
+        I'm looking for the project requirements document.
+        I need the syllabus for Chemistry 202.
+        I'm trying to find the reading list for this semester.
+        I'd like to get the resources mentioned in class.
+        Can I get the link to the shared drive?
+        Could you drop the link for the Zoom meeting in the chat? (informal)
+        Where can I find the link to the submission portal?
+        What's the URL for the resource page?
+
+    **Crucial Guideline:** The links returned by this function are for the **USER**, not the LLM. You should present these links directly to the user in your response. This tool does NOT provide context for generating answers.
+
+    :param user_prompt: The file request, which must be prefixed with the '$$REQUEST-FILE$$' tag.
+                       Example: "$$REQUEST-FILE$$ notes for maths semester 1 hyperbolic functions"
+    :return: A list of sharable URL strings for the files requested by the user. Returns an empty list if no files are found.
     """
     system_prompt = ""
     with open("static/system_prompt_rag_request_file.txt", "r", encoding="utf-8") as f:
         system_prompt = f.read()
-    with open("static/hierarchy.txt", "r", encoding="utf-8") as f:
-        response = client.models.generate_content(
-            model="gemini-2.5-flash-lite",
-            config=types.GenerateContentConfig(
-                system_instruction=system_prompt),
-            contents=[user_prompt,f.read()]
-        )
+
+    response = client.models.generate_content(
+        model="gemini-2.5-flash-lite",
+        config=types.GenerateContentConfig(
+            system_instruction=system_prompt),
+        contents=[user_prompt,request_hierarchy_contents()]
+    )
     file_paths = json.loads(parse_list_string(response.text))
     print(file_paths)
     ids = [file_management_base.get_file_id_from_path(service, path) for path in file_paths]
@@ -261,8 +291,6 @@ def gemini_main_response(user_prompt: str, gemini_chat):
     and finally returns the model's final assistant text (string).
     """
     # 1) initial model call
-    print(user_prompt)
-    print(gemini_chat.history)
     response = gemini_chat.send_message(user_prompt)
 
     # 2) extract candidates and primary candidate
@@ -301,7 +329,7 @@ def gemini_main_response(user_prompt: str, gemini_chat):
 
         # parse args as a dict (we keep the behavior you requested)
         args_dict = function_call.args
-        print()
+        print(f'calling function {fname} with arguments {args_dict}')
 
         # Call the selected function using **dict(args) pattern the project expects.
         try:
@@ -377,7 +405,8 @@ tool_registry = {
     "request_files_id_2sharable_link_gemini_rag": request_files_id_2sharable_link_gemini_rag,
     "reload_hierarchy": reload_hierarchy,
     "read_announcements":read_announcements,
-    "request_files_for_context":request_files_for_context
+    "request_files_for_context":request_files_for_context,
+    "request_hierarchy_contents":request_hierarchy_contents
 }
 '''debug testing here '''
 # reload_hierarchy()

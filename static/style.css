@@ -98,6 +98,7 @@ body {
     background-color: var(--bot-message-bg);
     align-self: flex-start;
     border-bottom-left-radius: 5px;
+    overflow-wrap: break-word;
 }
 
 .user-message {
