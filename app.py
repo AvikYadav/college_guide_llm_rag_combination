@@ -53,5 +53,7 @@ if __name__ == '__main__':
 
 
 '''to do
+adjust return file context to also return names with it 
+announcements , read and modify it not just through it
 Done all 😊
 '''

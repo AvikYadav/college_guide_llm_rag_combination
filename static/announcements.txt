@@ -1,1 +1,14 @@
-announcement : Demo testing announcementannouncement : Demo announcement 2announcement : Lab is cancelled for today
+announcement : Ccw is on third floor , high performance ai labannouncement : Dear All,
+All the students having elective of Sports and Yoga are hereby informed
+that they have to report at university at Netaji Subhas Statue at 8.00 am
+tomorrow i.e. 12th August 2025. .
+If any query, the CR of the class may contact me telephonically.
+
+Assembly Point: Netaji Subhas Statue at University in front of Admin Block.
+Time of Reporting: 8.00 am ( Sharp)
+Dress Code: T-Shirts, Lagging (Track Pants), Sports Shoes.
+Refreshment will be provided to you all.
+
+Regards.
+
+Dr. Praveen Saroha

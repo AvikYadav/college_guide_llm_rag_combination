@@ -155,7 +155,7 @@ def request_files_id_2sharable_link_gemini_rag(user_prompt:str):
 
     :param user_prompt: The file request, which must be prefixed with the '$$REQUEST-FILE$$' tag.
                        Example: "$$REQUEST-FILE$$ notes for maths semester 1 hyperbolic functions"
-    :return: A list of sharable URL strings for the files requested by the user. Returns an empty list if no files are found.
+    :return: A tuple containing a list of sharable URL strings for the files requested by the user and its respective filepaths as another list . Returns an tuple with empty list if no files are found. use the filepaths to get a context of whats the file is about
     """
     system_prompt = ""
     with open("static/system_prompt_rag_request_file.txt", "r", encoding="utf-8") as f:
@@ -171,7 +171,7 @@ def request_files_id_2sharable_link_gemini_rag(user_prompt:str):
     print(file_paths)
     ids = [file_management_base.get_file_id_from_path(service, path) for path in file_paths]
     print(ids)
-    return [file_management_base.create_sharable_link(service,id) for id in ids]
+    return ([file_management_base.create_sharable_link(service,id) for id in ids],file_paths)
 
 
 
@@ -390,7 +390,7 @@ def tool_reload_announcements():
 def read_announcements(howMany=10):
     '''
     a list of the latest announcements
-    :param howMany: this defines the number of announcements to return from the database in which announcements are arranged in order newer to older. by default keep this at 5 unless the user specifies how many announcements to return
+    :param howMany: this defines the number of announcements to return from the database in which announcements are arranged in order newer to older. by default keep this at 5 unless the user specifies how many announcements to return , !!! never return the result as it is , read the contents and respond in your own words
     :return: list of announcements
     '''
 

@@ -332,6 +332,7 @@ def get_upload_ready_file_for_llm(file_name, file_content):
     # Step 2: Create the file part for the prompt.
     # The SDK handles the encoding. You just provide the raw bytes and MIME type.
     file_part = {
+        "file_name": file_name,
         "mime_type": mime_type,
         "data": extract_text_from_file(file_content,filename=file_name)
     }
