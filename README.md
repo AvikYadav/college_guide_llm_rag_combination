@@ -42,7 +42,7 @@ You can tag files to give the system hints about their content:
     ├── semister1
         ├── $$SYSTEM$$:syllabus_EE_sem1.pdf
 
----
+```
 
 ### **2. LLM Capabilities (Tools)**
 
