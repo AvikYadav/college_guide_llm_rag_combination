@@ -29,7 +29,7 @@ You can tag files to give the system hints about their content:
 - `$$USER-BOOK$$` – Marks textbook files.  
 
 **Example folder structure:**
-
+```bash
 ├── $$SYSTEM$$:timetable.pdf
 ├── about_clg
     ├── $$SYSTEM$$:Complete_Campus_Map.pdf
@@ -52,13 +52,13 @@ The Large Language Model (LLM) is given specific tools to interact with the know
 - **Request Shareable File Links** – Provides a direct, shareable download link for a specific document, notes, or syllabus.  
 - **Read Announcements** – Fetches and displays the latest announcements from the dedicated email channel.  
 
----
+
 
 ## 🚀 Getting Started
 
 Follow these steps to set up and run your own instance of the **Campus Compass Assistant**.
 
----
+
 
 ### **Prerequisites**
 
@@ -66,20 +66,24 @@ Follow these steps to set up and run your own instance of the **Campus Compass A
 - A Google Cloud Platform project  
 - A dedicated Gmail account for announcements  
 
----
+
 
 ### **1. Clone the Repository**
 ```bash
 git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
+```
 2. Install Dependencies
 pip install -r requirements.txt
 You will need to create a requirements.txt file with libraries such as:
+```bash
 google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
 python-dotenv
 google-generativeai
+```
+
 3. Configure Google Drive & Service Account
 Go to Google Cloud Console.
 
@@ -99,6 +103,7 @@ IMPORTANT – Share your Google Drive folder with the service account email (e.g
 
 4. Set Up Environment Variables
 Create a .env file in the root directory:
+```bash
 # API Key for the LLM (Google Gemini)
 GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
 
@@ -108,9 +113,11 @@ GMAIL="your-announcement-email@gmail.com"
 # Gmail App Password (NOT your normal password)
 # See: https://support.google.com/accounts/answer/185833
 GMAIL_PASS="your_gmail_app_password"
-
+```
 5. Run the Application
+```bash
 python app.py
+```
 Now you can start asking Campus Compass questions! 🎉
 
 💡 Example Use Cases
