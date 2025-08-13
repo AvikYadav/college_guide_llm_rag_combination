@@ -1,3 +1,6 @@
+import ast
+import pprint
+
 from modal.cli.app import history
 
 import file_management_base
@@ -167,11 +170,29 @@ def request_files_id_2sharable_link_gemini_rag(user_prompt:str):
             system_instruction=system_prompt),
         contents=[user_prompt,request_hierarchy_contents()]
     )
+    # file paths from gemini raw
     file_paths = json.loads(parse_list_string(response.text))
-    print(file_paths)
-    ids = [file_management_base.get_file_id_from_path(service, path) for path in file_paths]
-    print(ids)
-    return ([file_management_base.create_sharable_link(service,id) for id in ids],file_paths)
+
+    # checking if the link was generated prior to this request
+    with open("static/links.txt","r",encoding="utf-8") as f:
+        already_gen_links = { ast.literal_eval(i.replace('\n',''))[0]:ast.literal_eval(i.replace('\n',''))[1] for i in f.readlines()}
+
+
+    # filtering which are the new files user requested that we don't have a link of
+    file_to_find_id = [path for path in file_paths if path not in already_gen_links]
+
+
+
+    print(file_to_find_id)
+    #id's of new files requested
+    ids = [file_management_base.get_file_id_from_path(service, path) for path in file_to_find_id]
+    #updating our links file
+    with open("static/links.txt","a+",encoding="utf-8") as f:
+        for link in zip(file_paths, ids):
+            if link not in already_gen_links.items():
+                print(link,file=f)
+    # returning final result as all the links+file paths for context
+    return ([file_management_base.create_sharable_link(service,id) for id in ids]+[already_gen_links.get(file) for file in file_paths if file in already_gen_links],file_paths)
 
 
 
@@ -410,6 +431,49 @@ tool_registry = {
     "request_files_for_context":request_files_for_context,
     "request_hierarchy_contents":request_hierarchy_contents
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def rag_new():
+    pass
+
+
+
+
+
+
+if __name__ == "__main__":
+    initialize()
+    print(request_files_id_2sharable_link_gemini_rag("$$REQUEST-FILE$$ give me all notes of maths sem 1"))
 '''debug testing here '''
 # reload_hierarchy()
 # gemini_chat = initialize_gemini_model()
