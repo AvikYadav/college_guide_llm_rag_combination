@@ -1,19 +1,19 @@
 ├── NSUT
     ├── cad_or_engneeringDrawing
-        ├── semister1
-            ├── $$USER-NOTES$$by-nishka_cad_lecture-3_2025-08-13_conic-section.pdf
-            ├── $$USER-NOTES$$by-tonvee_cad_lecture-3_2025-08-13_conic-section.pdf
-            ├── $$USER-NOTES$$by-deshna-cad_cad_lecture-3_2025-08-13_conic-section.pdf
-            ├── $$USER-NOTES$$by-rishabh_cad_lecture-3_2025-08-13_conic-section.pdf
-            ├── $$SYSTEM$$Syllabus-Scanned-1.pdf
-            ├── $$USER-NOTES$$by-unknown_cad-engineering-drawing_lecture-2_2025-08-08_guidelines-of-dimensioning-taper-surfaces.pdf
-            ├── $$USER-NOTES$$by-tonvee-das_cad-engineering-drawing_lecture-2_2025-08-08_guidelines-of-dimensioning-taper-surfaces.pdf
-            ├── $$USER-NOTES$$by-unknown_cad-engneering-drawing_lecture-1-to-3_2025-08-(04-11)_Complete-Notes.pdf
-            ├── $$USER-NOTES$$by-hitesh_cad-Engineering-Drawing_lecture-1_2025-08-05_Notes-scale-size-dimentioning-system-and-rules.pdf
-            ├── $$USER-NOTES$$by-indrina_cad-engneering-drawing_lecture-3_2025-08-11_Notes-lettering-types-of-lines.pdf
+        ├── semester-1
+            ├── $$SYSTEM$$Syllabus.pdf
             ├── $$USER-NOTES$$by-tonvee_cad-engineering-drawing_lecture-1_2025-08-05_Notes-scale-size-dimentioning-system-and-rules.pdf
+            ├── $$USER-NOTES$$by-indrina_cad-engneering-drawing_lecture-3_2025-08-11_Notes-lettering-types-of-lines.pdf
+            ├── $$USER-NOTES$$by-hitesh_cad-Engineering-Drawing_lecture-1_2025-08-05_Notes-scale-size-dimentioning-system-and-rules.pdf
+            ├── $$USER-NOTES$$by-unknown_cad-engneering-drawing_lecture-1-to-3_2025-08-(04-11)_Complete-Notes.pdf
+            ├── $$USER-NOTES$$by-tonvee-das_cad-engineering-drawing_lecture-2_2025-08-08_guidelines-of-dimensioning-taper-surfaces.pdf
+            ├── $$USER-NOTES$$by-unknown_cad-engineering-drawing_lecture-2_2025-08-08_guidelines-of-dimensioning-taper-surfaces.pdf
+            ├── $$USER-NOTES$$by-rishabh_cad_lecture-3_2025-08-13_conic-section.pdf
+            ├── $$USER-NOTES$$by-deshna-cad_cad_lecture-3_2025-08-13_conic-section.pdf
+            ├── $$USER-NOTES$$by-tonvee_cad_lecture-3_2025-08-13_conic-section.pdf
+            ├── $$USER-NOTES$$by-nishka_cad_lecture-3_2025-08-13_conic-section.pdf
     ├── Environmetal_and_green_chemistry
-        ├── semester 1
+        ├── semester-1
             ├── $$USER-NOTES$$by-nishka_chemistry_lecture-3_2025-08-11_notes-questions-practice.pdf
             ├── $$USER-NOTES$$by-unknown_Chemistry-notes_lecture-1-to-3_2025-08-(04-08)_unit-2-water-chemistry-class-notes.pptx
     ├── $$SYSTEM$$:timetable_lectureHalls_faculties.json
@@ -28,17 +28,17 @@
     ├── about_clg
         ├── $$SYSTEM$$Comprehensive Campus and navigation Guide NSUT.pdf
     ├── maths
-        ├── semister 1
-            ├── $$USER-NOTES$$:by-deshna-jain_maths-notes_lecture-3_2025-08-08_more-questions-and-some-special-formulas-of-inverse-hyperbolic-function.pdf
-            ├── nishka maths 12 aug.pdf
-            ├── $$SYSTEM$$Syllabus.pdf
-            ├── $$USER-NOTES$$by-prince_maths-notes_lecture-2_2025-08-06_questions-and-formula-of-hyperbolic-functions.pdf
-            ├── $$USER-NOTES$$by-unknown_maths-notes_lecture-1_2025-08-05_intoduction-to-hyperbolic-func.pdf
+        ├── semester-1
             ├── $$USER-NOTES$$by-mahir_maths_lecture-1-to-4_2025-08-(04-12)_complete-hyperbolic-functions-notes.pdf
+            ├── $$USER-NOTES$$by-unknown_maths-notes_lecture-1_2025-08-05_intoduction-to-hyperbolic-func.pdf
+            ├── $$USER-NOTES$$by-prince_maths-notes_lecture-2_2025-08-06_questions-and-formula-of-hyperbolic-functions.pdf
             ├── $$USER-NOTES$$by-indrina_maths_lecture-4_2025-08-12_successive-differentiation.pdf
+            ├── $$USER-NOTES$$:by-deshna-jain_maths-notes_lecture-3_2025-08-08_more-questions-and-some-special-formulas-of-inverse-hyperbolic-function.pdf
             ├── $$USER-NOTES$$by-deshna-jain_maths_lecture-4_2025-08-12_successive-differentiation.pdf
+            ├── $$SYSTEM$$Syllabus.pdf
+            ├── nishka maths 12 aug.pdf
     ├── english
-        ├── semister1
+        ├── semester-1
             ├── $$USER-NOTES$$by-unknown_english_general_2025-08-(11-30)_exercises
             ├── $$SYSTEM$$FCHS 0105 ENGLISH SYLLABUS (3)-1-.pdf
             ├── $$SYSTEM$$FCHS 0105 ENGLISH SYLLABUS.docx
@@ -46,7 +46,7 @@
             ├── $$USER-NOTES$$by-unknown_Reference-Material_General_2025-08-(04-20)_Abbreviations-List.pdf
             ├── $$USER-NOTES$$by-unknown_English_general_2025-08-(04-20)_Oxford-Collocations-Dictionary.pdf
     ├── electrical engneering
-        ├── semister1
+        ├── semester-1
             ├── $$USER-NOTES$$by-unknown_electrical-engineering_2025-08-(06-11)_unit one basic definitions and errors.pdf
             ├── $$SYSTEM$$:Fundamentals of Electrical Engineering syllabus.pdf
             ├── $$USER-NOTES$$by-unknown_General-Study_lecture-1-to-3_2025-08-(04-11)_Errors-Notes.pdf

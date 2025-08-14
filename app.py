@@ -53,19 +53,16 @@ if __name__ == '__main__':
 
 
 '''to do
-adjust return file context to also return names with it 
-announcements , read and modify it not just through it
-
 Tutoring mode add
-Context of date and time
-Fix read announcements
+
 Update for range of dates
-Announcements with context of time
 $$DEBUG$$ fix
 Give me notes from 10-08-2025
 to 12-08-2025
+
 Fix , book request
+
 Fix notes query
-optimized sharable links
+
 Done all 😊
 '''

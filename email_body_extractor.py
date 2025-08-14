@@ -45,7 +45,7 @@ def read_emails_with_subject_alternative(username=gmail, password=password, subj
 
                 # The 'text' property automatically finds the plain text body
                 if msg.text:
-                    extracted_contents.append(msg.text.strip("\n"))
+                    extracted_contents.append({"date":msg.date.strftime("%Y-%m-%d and time-%H:%M"), "content":msg.text.strip("\n")})
                     #print("Successfully extracted content.")
                 else:
                     print("Could not extract plain text content from this email.")

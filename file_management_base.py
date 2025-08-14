@@ -22,6 +22,7 @@ SCOPES = ["https://www.googleapis.com/auth/drive"]
 # Use 'root' to start from your main "My Drive" directory.
 
 TARGET_FOLDER_NAME =  "NSUT_MAIN"
+TARGET_FOLDER_ID = ""
 
 
 def extract_text_from_file(raw_data: bytes, filename: str) -> str:
@@ -166,7 +167,7 @@ def get_file_id_from_path(service, file_path: str) -> str | None:
     path_parts = file_path.strip("/").split("/")
 
     # Start traversal from the root folder
-    parent_id = find_shared_folder_id(service, TARGET_FOLDER_NAME)
+    parent_id = TARGET_FOLDER_ID
 
     # Traverse through the folders in the path
     for part in path_parts:
@@ -207,7 +208,7 @@ def get_file_id_from_path(service, file_path: str) -> str | None:
 
 def get_file_by_path(service, file_path, start_folder_name=TARGET_FOLDER_NAME):
     if start_folder_name !=None or len(start_folder_name) != 0:
-        start_folder_id = find_shared_folder_id(service, start_folder_name)
+        start_folder_id = TARGET_FOLDER_ID
     """
     Finds a file or folder in Google Drive by its path.
 
@@ -364,6 +365,7 @@ def get_upload_ready_file_for_llm(file_name, file_content):
 
 '''production stage auth'''
 def authenticate_and_return_service():
+    global TARGET_FOLDER_ID
     """Authenticates the service account and returns the Drive service."""
 
     # The path to your service account key file
@@ -378,6 +380,7 @@ def authenticate_and_return_service():
 
         service = build('drive', 'v3', credentials=creds)
         print("✅ Authentication successful.")
+        TARGET_FOLDER_ID = find_shared_folder_id(service,TARGET_FOLDER_NAME)
         return service
 
     except FileNotFoundError:
@@ -463,6 +466,81 @@ def find_shared_folder_id(service, folder_name: str) -> str | None:
         print(f"An API error occurred while searching for shared folder: {e}")
         return None
 
+
+def list_files_with_full_path(service, folder_id, f=sys.stdout):
+    """
+    Recursively lists all files with their full paths from within the subfolders
+    of a starting folder ID.
+
+    Args:
+        service: An authenticated Google Drive API service object.
+        folder_id (str): The ID of the folder whose sub-contents are to be listed.
+        f (file, optional): A file-like object to write the output to.
+                            Defaults to sys.stdout (the console).
+    """
+
+    # This helper function will handle the recursion
+    def _list_recursively(current_folder_id, current_path):
+        """
+        Helper function to traverse folders and print file paths.
+
+        Args:
+            current_folder_id (str): The ID of the folder currently being processed.
+            current_path (str): The path built so far to the current folder.
+        """
+        try:
+            # Query to get all items (files and folders) in the current folder
+            query = f"'{current_folder_id}' in parents and trashed = false"
+            results = service.files().list(
+                q=query,
+                pageSize=1000,  # Get up to 1000 items at a time
+                fields="nextPageToken, files(id, name, mimeType)"
+            ).execute()
+
+            items = results.get('files', [])
+
+            if not items:
+                return
+
+            for item in items:
+                item_name = item.get('name')
+                item_id = item.get('id')
+                mime_type = item.get('mimeType')
+
+                # Construct the full path for the current item
+                # If current_path is empty, don't add a leading '/'
+                new_path = f"{current_path}/{item_name}" if current_path else item_name
+
+                # If the item is a folder, make a recursive call
+                if mime_type == 'application/vnd.google-apps.folder':
+                    _list_recursively(item_id, new_path)
+                else:
+                    # If it's a file, print its full path
+                    print(new_path, file=f)
+
+        except Exception as e:
+            print(f"An error occurred: {e}", file=f)
+
+    # --- Start the process ---
+    # Initial call to the recursive helper function.
+    # We start with an empty path so the root folder's name is not included.
+    try:
+        _list_recursively(folder_id, "")
+    except Exception as e:
+        print(f"An error occurred while starting the process: {e}")
+
+    # --- Start the process ---
+    # First, get the name of the root folder to start the path
+    # try:
+    #     root_folder = service.files().get(fileId=folder_id, fields='name').execute()
+    #     root_folder_name = root_folder.get('name')
+    #     print(f"Starting from root folder: {root_folder_name}")
+    #
+    #     # Initial call to the recursive helper function
+    #     _list_recursively(folder_id, root_folder_name)
+    #
+    # except Exception as e:
+    #     print(f"Could not find the starting folder with ID '{folder_id}'. Error: {e}")
 
 
 #only for testing phase
