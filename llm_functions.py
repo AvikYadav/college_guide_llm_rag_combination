@@ -1,6 +1,9 @@
 import ast
 import pprint
 from datetime import datetime
+
+import holiday_lister
+
 import file_management_base
 import email_body_extractor
 import google.generativeai as gen
@@ -25,6 +28,8 @@ def initialize():
     client = genai.Client(api_key=apiKey)
     gen.configure(api_key=apiKey)
 
+    with open("static/holidays.txt","w",encoding="utf-8") as f:
+        print(holiday_lister.get_holiday_list(),file=f)
 
 def parse_list_string(s):
     s = s.strip()
@@ -412,7 +417,9 @@ def gemini_main_response(user_prompt: str, gemini_chat):
         "time": now.strftime("%H:%M"),
         "day": now.strftime("%A")
     }
-    response = gemini_chat.send_message([user_prompt,request_hierarchy_contents(),json.dumps(current_datetime_info)])
+    with open("static/holidays.txt","r",encoding="utf-8") as f:
+        holidays = f.read()
+    response = gemini_chat.send_message([user_prompt,request_hierarchy_contents(),json.dumps(current_datetime_info),holidays])
 
     # 2) extract candidates and primary candidate
     candidates = _extract_candidates(response)

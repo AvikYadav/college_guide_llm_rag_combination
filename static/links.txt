@@ -18,3 +18,5 @@
 ('NSUT/cad_or_engneeringDrawing/semester-1/$$USER-NOTES$$by-deshna-cad_cad_lecture-3_2025-08-13_conic-section.pdf', '12JVacPb4q4PLMH9XQXAuSJONLlVxvqcf')
 ('NSUT/cad_or_engneeringDrawing/semester-1/$$USER-NOTES$$by-tonvee_cad_lecture-3_2025-08-13_conic-section.pdf', '12JG7ixbSG0kzBdiuA56ctqJVupcKIVVl')
 ('NSUT/cad_or_engneeringDrawing/semester-1/$$USER-NOTES$$by-nishka_cad_lecture-3_2025-08-13_conic-section.pdf', '12otYr1auoUUlcGIzQ5vM7SfQnDpYMMdx')
+('NSUT/maths/semester-1/$$USER-NOTES$$by-indrina_maths_lecture-5_2025-08-13_successive-differentiation-questions.pdf', '13lXhErYPQDg0rDtS5HMy6LyoA78Mml_K')
+('NSUT/maths/semester-1/$$USER-NOTES$$by-anshika_maths_lecture-5_2025-08-13_successive-differentiation-questions.pdf', '13dMxwxqrCMspH0G_hdyOpND3K2tonfZH')

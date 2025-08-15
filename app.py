@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, redirect,session,jsonify
-import time
+from flask import Flask, render_template, request, session,jsonify
 import llm_functions
 app = Flask(__name__)
 app.secret_key = 'super secret key!@#$@$%&^*(^&&$^*67586589924859023$#@%@#$%@#$%QWFKDSAFKEDEOFJDSAjdfhkjasflkj$@#%^%^'
@@ -62,7 +61,7 @@ to 12-08-2025
 
 Fix , book request
 
-Fix notes query
+add nsut calender
 
 Done all 😊
 '''
