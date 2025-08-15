@@ -17,6 +17,11 @@ import re
 import logging
 
 logger,service,apikey,client=None,None,None,None
+
+with open("static/holidays.txt", "w", encoding="utf-8") as f:
+    print(holiday_lister.get_holiday_list(), file=f)
+
+
 def initialize():
     global logger,service,apikey,client
     logger = logging.getLogger(__name__)
@@ -28,8 +33,6 @@ def initialize():
     client = genai.Client(api_key=apiKey)
     gen.configure(api_key=apiKey)
 
-    with open("static/holidays.txt","w",encoding="utf-8") as f:
-        print(holiday_lister.get_holiday_list(),file=f)
 
 def parse_list_string(s):
     s = s.strip()
@@ -270,7 +273,7 @@ def request_files_id_2sharable_link_gemini_rag(query:dict):
     """
     # file paths from gemini raw
     file_paths = match_percent_rag(dict(query))
-    print(file_paths)
+    #print(file_paths)
     #checking if the link was generated prior to this request
     with open("static/links.txt","r",encoding="utf-8") as f:
         already_gen_links = { ast.literal_eval(i.replace('\n',''))[0]:ast.literal_eval(i.replace('\n',''))[1] for i in f.readlines()}
@@ -281,7 +284,7 @@ def request_files_id_2sharable_link_gemini_rag(query:dict):
 
 
 
-    print(file_to_find_id)
+    #print(file_to_find_id)
     #id's of new files requested
     ids = [file_management_base.get_file_id_from_path(service, path) for path in file_to_find_id]
     #updating our links file
@@ -582,7 +585,7 @@ def match_percent_rag(query):
         tag =query['tag']
         if tag !=None:
             if tag not in path:
-                print("this path does now match the tag :",path)
+                #print("this path does now match the tag :",path)
                 paths.remove(path)
 
 
@@ -592,7 +595,7 @@ def match_percent_rag(query):
         sem = query['semester']
         if sem != None:
             if f'semester-{int(sem)}' not in path:
-                print("this path does now match the semester :",path)
+                #print("this path does now match the semester :",path)
                 paths.remove(path)
 
 
@@ -603,7 +606,7 @@ def match_percent_rag(query):
         sub = query['subject']
         if sub != None:
             if sub not in path:
-                print("this path does now match the subject :",path)
+                #print("this path does now match the subject :",path)
                 paths.remove(path)
 
 
@@ -612,14 +615,14 @@ def match_percent_rag(query):
         user  = query['by_user']
         if user != None:
             if user not in path:
-                print("this path does now match the by_user :",path)
+                #print("this path does now match the by_user :",path)
                 paths.remove(path)
 
     for path in paths.copy():
         lecture = query['lecture_no']
         if lecture != None:
             if f"lecture-{int(lecture)}" not in path:
-                print("this path does now match the by_user :", path)
+                #print("this path does now match the by_user :", path)
                 paths.remove(path)
 
     for path in paths.copy():
@@ -627,7 +630,7 @@ def match_percent_rag(query):
         date = query['date']
         if date != None:
             if date not in path:
-                print("this path does now match the date :", date)
+                #print("this path does now match the date :", date)
                 paths.remove(path)
 
     paths_new = [path.replace("\n","") for path in paths]

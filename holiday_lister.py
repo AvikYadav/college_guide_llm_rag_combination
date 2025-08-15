@@ -27,7 +27,7 @@ def get_holiday_list():
             data = response.json()
             holidays_list = data.get('response', {}).get('holidays', [])
 
-            print(holidays_list)
+            #print(holidays_list)
 
             if holidays_list:
                 return holidays_list

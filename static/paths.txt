@@ -17,8 +17,8 @@ NSUT/books/electrical_engneering/$$USER-BOOK$$A_K_Sawhney course_in_Electrical_a
 NSUT/books/maths/hyperbolic functions/$$USER-BOOK$$:Smithsonian Mathematical Tables_ Hyperbolic Functions by Anna’s Archive.pdf
 NSUT/books/maths/hyperbolic functions/$$USER-BOOK$$:hyperbolic_functions_by_james_mcMahon.pdf
 NSUT/about_clg/$$SYSTEM$$Comprehensive Campus and navigation Guide NSUT.pdf
-NSUT/maths/semester-1/$$USER-NOTES$$by-indrina_maths_lecture-5_2025-08-13_successive-differentiation-questions.pdf
 NSUT/maths/semester-1/$$USER-NOTES$$by-anshika_maths_lecture-5_2025-08-13_successive-differentiation-questions.pdf
+NSUT/maths/semester-1/$$USER-NOTES$$by-indrina_maths_lecture-5_2025-08-13_successive-differentiation-questions.pdf
 NSUT/maths/semester-1/$$USER-NOTES$$by-nishka_maths_lecture-4_2025-08-12_successive-differentiation.pdf
 NSUT/maths/semester-1/$$SYSTEM$$Syllabus.pdf
 NSUT/maths/semester-1/$$USER-NOTES$$by-mahir_maths_lecture-1-to-4_2025-08-(04-12)_complete-hyperbolic-functions-notes.pdf
