@@ -513,7 +513,8 @@ def list_files_with_full_path(service, folder_id, f=sys.stdout):
 
                 # If the item is a folder, make a recursive call
                 if mime_type == 'application/vnd.google-apps.folder':
-                    _list_recursively(item_id, new_path)
+                    _list_recursively(item_id,
+                                      new_path)
                 else:
                     # If it's a file, print its full path
                     print(new_path, file=f)

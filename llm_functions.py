@@ -152,124 +152,138 @@ def request_files_for_context(query:str):
 
 # this is a tool for llm
 def request_files_id_2sharable_link_gemini_rag(query:dict):
-    """Provides direct, sharable download links for files requested by the user.
+    """
+    Provides direct, sharable download links for files requested by the user.
 
-        Call this function ONLY when the user explicitly requests a downloadable file,
-        such as notes, documents, or syllabi. It is triggered by phrases like:
-            - "Send me the presentation slides."
-            - "Do you have the notes from yesterday's lecture?"
-            - "I need the syllabus for Chemistry 202."
-            - "Can I get the link to the shared drive?"
+    Call this function ONLY when the user explicitly requests a downloadable file,
+    such as notes, documents, or syllabi. It is triggered by phrases like:
+        - "Send me the presentation slides."
+        - "Do you have the notes from yesterday's lecture?"
+        - "I need the syllabus for Chemistry 202."
+        - "Can I get the link to the shared drive?"
 
-        **Crucial Guideline:** The links returned by this function are for the **USER**,
-        not the LLM. You should present these links directly to the user in your response.
-        This tool does NOT provide context for generating answers.
+    **!! CRITICAL INSTRUCTION: NEVER MODIFY THE DOWNLOAD LINKS !!**
+    - The URLs provided by this tool are unique and pre-signed. **ANY** modification,
+      including shortening, encoding, or altering even a single character, will
+      permanently invalidate the link and make the file inaccessible.
+    - You **MUST** present the links to the user exactly, character-for-character,
+      as they are returned by this function.
+    - You may format your response to make the link clickable (e.g., using Markdown),
+      but the underlying URL string itself must remain completely unaltered.
 
-        Args:
-            query (dict): A structured query to identify the requested files.
-                The dictionary should contain specific keys to filter the file
-                database. Any key not relevant to the user's request
-                should be set to `None`. The format is:
-                {
-                    "tag": "The file type, e.g., '$$SYSTEM$$', '$$USER-NOTES$$', '$$USER-BOOK$$'",
-                    "subject": "The main subject,try to write exact subject as given in hierarchy folder names e.g., 'maths', 'cad'",
-                    "by_user": "The name of the user who created the notes,DO NOT EDIT THIS VALUE COPY IT AS IT IS FROM user prompt in lowercase e.g., 'deshna'",
-                    "lecture_no": "The specific lecture number, e.g., 3",
-                    "date": "A specific date or date range !! in format as YYYY-MM-DD only, e.g., '2025-08-12',for range '2025-08-(04-22)'",
-                    "context": "A specific topic within a subject, e.g., 'hyperbolic functions'",
-                    "semester": "The semester number, e.g., 1"
-                }
+      - **Correct Example:** `[Maths Lecture Notes](https://example.com/file?id=123&signature=abc)`
+      - **Incorrect Example:** `[Maths Lecture Notes](https://example.com/file?id=123)` (This is WRONG because the signature was removed).
 
-        Returns:
-            tuple[list[str], list[str]]: A tuple containing two lists:
-            1. A list of sharable URL strings for the requested files.
-            2. A list of the corresponding file paths for the LLM's context.
-            Returns an empty tuple ([], []) if no files are found.
+    **Additional Guidelines:**
+    - The links returned by this function are for the **USER**, not for the LLM.
+    - Present these links directly to the user in your response.
+    - This tool does NOT provide context for generating answers; it only provides links.
 
-        Examples:
-            User Request: "give me notes of maths sem 1 lecture 3 on hyperbolic functions"
-            Query:
+    Args:
+        query (dict): A structured query to identify the requested files.
+            The dictionary should contain specific keys to filter the file
+            database. Any key not relevant to the user's request
+            should be set to `None`. The format is:
             {
-                "tag": "$$USER-NOTES$$",
-                "subject": "maths",
-                "by_user": None,
-                "lecture_no": 3,
-                "date": None,
-                "context": "hyperbolic functions",
-                "semester": 1
+                "tag": "The file type, e.g., '$$SYSTEM$$', '$$USER-NOTES$$', '$$USER-BOOK$$'",
+                "subject": "The main subject,try to write exact subject as given in hierarchy folder names e.g., 'maths', 'cad'",
+                "by_user": "The name of the user who created the notes,DO NOT EDIT THIS VALUE COPY IT AS IT IS FROM user prompt in lowercase e.g., 'deshna'",
+                "lecture_no": "The specific lecture number, e.g., 3",
+                "date": "A specific date or date range !! in format as YYYY-MM-DD only, e.g., '2025-08-12',for range '2025-08-(04-22)'",
+                "context": "A specific topic within a subject, e.g., 'hyperbolic functions'",
+                "semester": "The semester number, e.g., 1"
             }
 
-            User Request: "all notes of cad"
-            Query:
-            {
-                "tag": "$$USER-NOTES$$",
-                "subject": "cad",
-                "by_user": None,
-                "lecture_no": None,
-                "date": None,
-                "context": None,
-                "semester": None
-            }
+    Returns:
+        tuple[list[str], list[str]]: A tuple containing two lists:
+        1. A list of sharable, **unalterable** URL strings for the requested files.
+        2. A list of the corresponding file paths for the LLM's context.
+        Returns an empty tuple ([], []) if no files are found.
 
-            User Request: "notes of cad from date 2025-08-04 to 2025-08-25"
-            Query:
-            {
-                "tag": "$$USER-NOTES$$",
-                "subject": "cad",
-                "by_user": None,
-                "lecture_no": None,
-                "date": "2025-08-(04-25)",
-                "context": None,
-                "semester": None
-            }
+    Examples:
+        User Request: "give me notes of maths sem 1 lecture 3 on hyperbolic functions"
+        Query:
+        {
+            "tag": "$$USER-NOTES$$",
+            "subject": "maths",
+            "by_user": None,
+            "lecture_no": 3,
+            "date": None,
+            "context": "hyperbolic functions",
+            "semester": 1
+        }
 
-            User Request: "notes of maths by deshna"
-            Query:
-            {
-                "tag": "$$USER-NOTES$$",
-                "subject": "maths",
-                "by_user": "deshna",
-                "lecture_no": None,
-                "date": None,
-                "context": None,
-                "semester": None
-            }
+        User Request: "all notes of cad"
+        Query:
+        {
+            "tag": "$$USER-NOTES$$",
+            "subject": "cad",
+            "by_user": None,
+            "lecture_no": None,
+            "date": None,
+            "context": None,
+            "semester": None
+        }
 
-            User Request: "give me book of maths about hyperbolic functions"
-            Query:
-            {
-                "tag": "$$USER-BOOK$$",
-                "subject": "maths",
-                "by_user": None,
-                "lecture_no": None,
-                "date": None,
-                "context": "hyperbolic functions",
-                "semester": None
-            }
+        User Request: "notes of cad from date 2025-08-04 to 2025-08-25"
+        Query:
+        {
+            "tag": "$$USER-NOTES$$",
+            "subject": "cad",
+            "by_user": None,
+            "lecture_no": None,
+            "date": "2025-08-(04-25)",
+            "context": None,
+            "semester": None
+        }
 
-            User Request: "give me a book on hyperbolic functions"
-            Query:
-            {
-                "tag": "$$USER-BOOK$$",
-                "subject": None,
-                "by_user": None,
-                "lecture_no": None,
-                "date": None,
-                "context": "hyperbolic functions",
-                "semester": None
-            }
+        User Request: "notes of maths by deshna"
+        Query:
+        {
+            "tag": "$$USER-NOTES$$",
+            "subject": "maths",
+            "by_user": "deshna",
+            "lecture_no": None,
+            "date": None,
+            "context": None,
+            "semester": None
+        }
 
-            User Request: "give me the syllabus of cad"
-            Query:
-            {
-                "tag": "$$SYSTEM$$",
-                "subject": "cad",
-                "by_user": None,
-                "lecture_no": None,
-                "date": None,
-                "context": "syllabus",
-                "semester": None
-            }
+        User Request: "give me book of maths about hyperbolic functions"
+        Query:
+        {
+            "tag": "$$USER-BOOK$$",
+            "subject": "maths",
+            "by_user": None,
+            "lecture_no": None,
+            "date": None,
+            "context": "hyperbolic functions",
+            "semester": None
+        }
+
+        User Request: "give me a book on hyperbolic functions"
+        Query:
+        {
+            "tag": "$$USER-BOOK$$",
+            "subject": None,
+            "by_user": None,
+            "lecture_no": None,
+            "date": None,
+            "context": "hyperbolic functions",
+            "semester": None
+        }
+
+        User Request: "give me the syllabus of cad"
+        Query:
+        {
+            "tag": "$$SYSTEM$$",
+            "subject": "cad",
+            "by_user": None,
+            "lecture_no": None,
+            "date": None,
+            "context": "syllabus",
+            "semester": None
+        }
     """
     # file paths from gemini raw
     file_paths = match_percent_rag(dict(query))
@@ -287,14 +301,15 @@ def request_files_id_2sharable_link_gemini_rag(query:dict):
     #print(file_to_find_id)
     #id's of new files requested
     ids = [file_management_base.get_file_id_from_path(service, path) for path in file_to_find_id]
+    links = [file_management_base.create_sharable_link(service,id) for id in ids]
     #updating our links file
     with open("static/links.txt","a+",encoding="utf-8") as f:
-        for link in zip(file_paths, ids):
+        for link in zip(file_paths, links):
             if link not in already_gen_links.items():
                 if link[1] != None:
                     print(link,file=f)
     # returning final result as all the links+file paths for context
-    return ([file_management_base.create_sharable_link(service,id) for id in ids]+[already_gen_links.get(file) for file in file_paths if file in already_gen_links],file_paths)
+    return (links+[already_gen_links.get(file) for file in file_paths if file in already_gen_links],file_paths)
 
 
 
@@ -642,6 +657,7 @@ def match_percent_rag(query):
 
 if __name__ == "__main__":
     initialize()
+    print(file_management_base.create_sharable_link(service,"11RsiFxGMy2Gx2I4FDo6ra2l4g9IyxAeD"))
     #reload_hierarchy()
     #read_announcements(1)
     #match_percent_rag(None)
